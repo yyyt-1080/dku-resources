@@ -186,6 +186,27 @@
     letter-spacing:0.08em;
     color: rgba(246,239,225,0.3);
   }
+
+  /* hidden stats panel — only visible when URL ends in #stats */
+  #stats{
+    display:none;
+    position:fixed;
+    bottom:16px;
+    right:16px;
+    z-index:10;
+    background: rgba(18,21,43,0.92);
+    border: 1px solid rgba(244,201,93,0.35);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color: var(--cream);
+    line-height:1.6;
+    backdrop-filter: blur(4px);
+  }
+  #stats:target{
+    display:block;
+  }
 </style>
 </head>
 <body>
@@ -297,7 +318,7 @@
     <div class="credit">Portal made by Minghua</div>
   </section>
 
-  <footer>DKU Resources</footer>
+  <footer>DKU CLASS OF 2028 · WELCOME ABOARD</footer>
 
 </main>
 
@@ -318,6 +339,11 @@
   }
   starsContainer.appendChild(frag);
 </script>
+
+<div id="stats">
+  UV: <span id="busuanzi_value_site_uv">–</span> · PV: <span id="busuanzi_value_site_pv">–</span>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 </body>
 </html>
