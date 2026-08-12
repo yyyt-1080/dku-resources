@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DKU Compass · Student Resource Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night: #1B1F3B;
+    --night-deep: #12152B;
+    --cream: #F6EFE1;
+    --moon: #F4C95D;
+    --sage: #8FAE8B;
+    --lavender: #B9A6D9;
+    --rose: #E4A0A0;
+    --line: rgba(246,239,225,0.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background: var(--night);
+    color: var(--cream);
+    font-family: 'Work Sans', sans-serif;
+    font-weight:400;
+    min-height:100vh;
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  .sky{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background: radial-gradient(ellipse at 20% 10%, rgba(185,166,217,0.12), transparent 55%),
+                radial-gradient(ellipse at 85% 30%, rgba(244,201,93,0.08), transparent 50%),
+                linear-gradient(180deg, var(--night) 0%, var(--night-deep) 100%);
+  }
+  .star{
+    position:fixed; border-radius:50%; background:var(--cream); opacity:0.6; z-index:0;
+    animation: twinkle 4s ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%,100%{opacity:.25;}
+    50%{opacity:.85;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .star{animation:none; opacity:.5;}
+    html{scroll-behavior:auto;}
+  }
+
+  main{position:relative; z-index:1; max-width:640px; margin:0 auto; padding: 64px 24px 96px;}
+
+  .hero{text-align:center; margin-bottom:56px;}
+  .moon-wrap{display:flex; justify-content:center; margin-bottom: 22px;}
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:12px; letter-spacing:0.22em; text-transform:uppercase;
+    color: var(--lavender); margin-bottom:14px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    font-weight:500;
+    font-size: clamp(2.1rem, 7vw, 3rem);
+    line-height:1.1;
+    color: var(--cream);
+    margin-bottom:14px;
+  }
+  h1 em{
+    font-style:italic;
+    color: var(--moon);
+  }
+  .hero p{
+    font-size:15.5px;
+    line-height:1.6;
+    color: rgba(246,239,225,0.72);
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .section-label{
+    display:flex; align-items:center; gap:12px;
+    margin: 0 0 22px;
+    font-family:'Space Mono', monospace;
+    font-size:12px; letter-spacing:0.16em; text-transform:uppercase;
+    color: var(--sage);
+  }
+  .section-label::after{
+    content:''; flex:1; height:1px; background: var(--line);
+  }
+
+  .constellation{list-style:none; display:flex; flex-direction:column; gap:12px; margin-bottom:64px;}
+  .card{
+    display:block;
+    text-decoration:none;
+    color:inherit;
+    background: rgba(246,239,225,0.045);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 20px;
+    display:flex; align-items:flex-start; gap:16px;
+    transition: transform .18s ease, background .18s ease, border-color .18s ease;
+  }
+  .card:hover, .card:focus-visible{
+    background: rgba(246,239,225,0.08);
+    border-color: rgba(244,201,93,0.4);
+    transform: translateY(-2px);
+  }
+  .card:focus-visible{ outline: 2px solid var(--moon); outline-offset: 2px; }
+  .glyph{
+    flex-shrink:0;
+    width:38px; height:38px;
+    display:flex; align-items:center; justify-content:center;
+    border-radius:50%;
+    background: rgba(244,201,93,0.1);
+    font-size:17px;
+  }
+  .card-text{flex:1; min-width:0;}
+  .card-title{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:17px;
+    color: var(--cream);
+    margin-bottom:3px;
+  }
+  .card-desc{
+    font-size:13.5px;
+    line-height:1.5;
+    color: rgba(246,239,225,0.6);
+  }
+  .card-desc .alt{
+    display:block;
+    margin-top:2px;
+    color: rgba(185,166,217,0.85);
+  }
+  .arrow{
+    flex-shrink:0;
+    color: rgba(246,239,225,0.35);
+    font-size:15px;
+    align-self:center;
+    transition: transform .18s ease, color .18s ease;
+  }
+  .card:hover .arrow{ transform: translateX(3px); color: var(--moon); }
+
+  .portal{
+    text-align:center;
+    border: 1px dashed rgba(185,166,217,0.35);
+    border-radius:18px;
+    padding: 34px 24px;
+    background: radial-gradient(circle at 50% 0%, rgba(185,166,217,0.08), transparent 70%);
+  }
+  .portal p.lead{
+    font-size:14.5px;
+    color: rgba(246,239,225,0.65);
+    max-width:360px;
+    margin: 0 auto 18px;
+    line-height:1.6;
+  }
+  .portal-btn{
+    display:inline-flex; align-items:center; gap:9px;
+    text-decoration:none;
+    font-family:'Space Mono', monospace;
+    font-size:13px; letter-spacing:0.05em;
+    color: var(--night);
+    background: var(--lavender);
+    padding: 13px 24px;
+    border-radius: 999px;
+    transition: background .18s ease, transform .18s ease;
+  }
+  .portal-btn:hover, .portal-btn:focus-visible{
+    background: var(--moon);
+    transform: translateY(-2px);
+  }
+  .credit{
+    margin-top:18px;
+    font-size:12px;
+    color: rgba(246,239,225,0.4);
+  }
+
+  footer{
+    text-align:center;
+    margin-top:64px;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    color: rgba(246,239,225,0.3);
+  }
+</style>
+</head>
+<body>
+
+<div class="sky"></div>
+<div id="stars"></div>
+
+<main>
+
+  <section class="hero">
+    <div class="moon-wrap">
+      <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <radialGradient id="moonGrad" cx="35%" cy="30%" r="75%">
+            <stop offset="0%" stop-color="#FDF4D8"/>
+            <stop offset="100%" stop-color="#F4C95D"/>
+          </radialGradient>
+        </defs>
+        <circle cx="36" cy="36" r="30" fill="url(#moonGrad)"/>
+        <circle cx="27" cy="26" r="4.5" fill="#E4A0A0" opacity="0.35"/>
+        <circle cx="44" cy="42" r="6.5" fill="#E4A0A0" opacity="0.28"/>
+        <circle cx="30" cy="47" r="3" fill="#E4A0A0" opacity="0.3"/>
+      </svg>
+    </div>
+    <div class="eyebrow">DKU Compass</div>
+    <h1>Everything you need,<br><em>orbiting</em> in one place</h1>
+    <p>A small map of the resources that matter most in your first year at DKU. Scan, tap, and go.</p>
+  </section>
+
+  <div class="section-label">Main</div>
+  <ul class="constellation">
+
+    <li>
+      <a class="card" href="https://lcc.dukekunshan.edu.cn/writing-and-language-studio/" target="_blank" rel="noopener">
+        <span class="glyph">✎</span>
+        <span class="card-text">
+          <span class="card-title">Writing &amp; Language Studio</span>
+          <span class="card-desc">Free 1-on-1 coaching for essays, papers, and language practice.
+            <span class="alt">Or book via WeChat: 昆山杜克大学语言文化中心</span>
+          </span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="card" href="https://dkuhub.dku.edu.cn/" target="_blank" rel="noopener">
+        <span class="glyph">⌂</span>
+        <span class="card-text">
+          <span class="card-title">DKU Hub</span>
+          <span class="card-desc">Your campus portal — registration, forms, and student services.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="card" href="https://calendar.dukekunshan.edu.cn/events" target="_blank" rel="noopener">
+        <span class="glyph">✦</span>
+        <span class="card-text">
+          <span class="card-title">Event Calendar</span>
+          <span class="card-desc">Talks, clubs, socials, and everything happening on campus.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="card" href="https://careerservices.dukekunshan.edu.cn/" target="_blank" rel="noopener">
+        <span class="glyph">◈</span>
+        <span class="card-text">
+          <span class="card-title">Career Services</span>
+          <span class="card-desc">Internships, resume reviews, and career advising.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="card" href="https://software.duke.edu/" target="_blank" rel="noopener">
+        <span class="glyph">⌘</span>
+        <span class="card-text">
+          <span class="card-title">Duke Software Installation</span>
+          <span class="card-desc">Free software and licenses available to Duke-affiliated students.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="card" href="https://faculty.dukekunshan.edu.cn/" target="_blank" rel="noopener">
+        <span class="glyph">☉</span>
+        <span class="card-text">
+          <span class="card-title">Meet the Faculty</span>
+          <span class="card-desc">Browse profiles and research areas across DKU departments.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+  </ul>
+
+  <div class="section-label">Further out</div>
+  <section class="portal">
+    <p class="lead">Housing, dining, health, transportation, and more — the fuller map of campus life lives here.</p>
+    <a class="portal-btn" href="https://mimihuka.notion.site/portal-297166af583880b4a878c8d8e2deac23" target="_blank" rel="noopener">
+      Open the full portal ↗
+    </a>
+    <div class="credit">Portal made by Minghua</div>
+  </section>
+
+  <footer>DKU CLASS OF 2028 · WELCOME ABOARD</footer>
+
+</main>
+
+<script>
+  const starsContainer = document.getElementById('stars');
+  const starCount = window.innerWidth < 480 ? 26 : 40;
+  const frag = document.createDocumentFragment();
+  for (let i = 0; i < starCount; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2 + 1;
+    s.style.width = size + 'px';
+    s.style.height = size + 'px';
+    s.style.top = Math.random() * 100 + 'vh';
+    s.style.left = Math.random() * 100 + 'vw';
+    s.style.animationDelay = (Math.random() * 4) + 's';
+    frag.appendChild(s);
+  }
+  starsContainer.appendChild(frag);
+</script>
+
+</body>
+</html>
