@@ -14,7 +14,7 @@ A lightweight landing page, deployed as a single `index.html`, meant to be scann
 
 **Main** — six resources most useful to DKU students:
 
-| Resource | Link |
+| Resource (especially for freshman) | Link |
 |---|---|
 | Writing & Language Studio | https://lcc.dukekunshan.edu.cn/writing-and-language-studio/ (or WeChat: 昆山杜克大学语言文化中心) |
 | DKU Hub | https://dkuhub.dku.edu.cn/ |
@@ -22,6 +22,15 @@ A lightweight landing page, deployed as a single `index.html`, meant to be scann
 | Career Services | https://careerservices.dukekunshan.edu.cn/ |
 | Duke Software Installation | https://software.duke.edu/ |
 | Faculty Directory | https://faculty.dukekunshan.edu.cn/ |
+
+| Resource (especially for upper class) | Link |
+|---|---|
+| DKU Hub | https://dkuhub.dku.edu.cn/ |
+| Event Calendar | https://calendar.dukekunshan.edu.cn/events |
+| Duke Canvas | https://go.canvas.duke.edu/ |
+| UG Bulletin | https://duke.box.com/s/xw53mxh0iy7imnlthcdrzrf3mn200sa2 |
+| DKU Moves | https://shib.oit.duke.edu/idp/authn/external?conversation=e1s1 |
+
 
 
 ## QR code
