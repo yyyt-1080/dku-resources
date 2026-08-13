@@ -90,7 +90,46 @@
     content:''; flex:1; height:1px; background: var(--line);
   }
 
-  .constellation{list-style:none; display:flex; flex-direction:column; gap:12px; margin-bottom:64px;}
+  /* audience toggle */
+  .toggle{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    margin: 0 auto 48px;
+    max-width: 340px;
+  }
+  .toggle-btn{
+    flex:1;
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color: rgba(246,239,225,0.55);
+    background: rgba(246,239,225,0.04);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 10px 14px;
+    cursor:pointer;
+    transition: background .18s ease, color .18s ease, border-color .18s ease;
+  }
+  .toggle-btn:hover{
+    border-color: rgba(244,201,93,0.35);
+    color: var(--cream);
+  }
+  .toggle-btn.active{
+    background: var(--moon);
+    border-color: var(--moon);
+    color: var(--night);
+  }
+  .toggle-btn:focus-visible{
+    outline: 2px solid var(--moon);
+    outline-offset: 2px;
+  }
+
+  .constellation{ display:none; }
+  .constellation.active{ display:flex; }
+
+  .constellation{list-style:none; flex-direction:column; gap:12px; margin-bottom:64px;}
   .card{
     display:block;
     text-decoration:none;
@@ -233,11 +272,17 @@
     </div>
     <div class="eyebrow">DKU Compass</div>
     <h1>Everything you need,<br><em>orbiting</em> in one place</h1>
-    <p>A small map of the resources that matter most in your first year at DKU. Scan, tap, and go.</p>
+    <p id="hero-desc">A small map of the resources that matter most to DKU students. Scan, tap, and go.</p>
   </section>
 
+  <div class="toggle" role="tablist" aria-label="Choose your audience">
+    <button class="toggle-btn active" id="btn-freshman" role="tab" aria-selected="true" aria-controls="list-freshman">Freshman</button>
+    <button class="toggle-btn" id="btn-upperclass" role="tab" aria-selected="false" aria-controls="list-upperclass">Upperclass</button>
+  </div>
+
   <div class="section-label">Main</div>
-  <ul class="constellation">
+
+  <ul class="constellation active" id="list-freshman">
 
     <li>
       <a class="card" href="https://lcc.dukekunshan.edu.cn/writing-and-language-studio/" target="_blank" rel="noopener">
@@ -309,6 +354,65 @@
 
   </ul>
 
+  <ul class="constellation" id="list-upperclass">
+
+    <li>
+      <a class="card" href="https://dkuhub.dku.edu.cn/" target="_blank" rel="noopener">
+        <span class="glyph">⌂</span>
+        <span class="card-text">
+          <span class="card-title">DKU Hub</span>
+          <span class="card-desc">Your campus portal — registration, forms, and student services.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="card" href="https://calendar.dukekunshan.edu.cn/events" target="_blank" rel="noopener">
+        <span class="glyph">✦</span>
+        <span class="card-text">
+          <span class="card-title">Event Calendar</span>
+          <span class="card-desc">Talks, clubs, socials, and everything happening on campus.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="card" href="https://go.canvas.duke.edu/" target="_blank" rel="noopener">
+        <span class="glyph">▦</span>
+        <span class="card-text">
+          <span class="card-title">Duke Canvas</span>
+          <span class="card-desc">Course materials, assignments, and grades for your classes.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="card" href="https://duke.box.com/s/xw53mxh0iy7imnlthcdrzrf3mn200sa2" target="_blank" rel="noopener">
+        <span class="glyph">▤</span>
+        <span class="card-text">
+          <span class="card-title">UG Bulletin</span>
+          <span class="card-desc">Official undergraduate requirements, majors, and degree rules.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="card" href="https://shib.oit.duke.edu/idp/authn/external?conversation=e1s1" target="_blank" rel="noopener">
+        <span class="glyph">➤</span>
+        <span class="card-text">
+          <span class="card-title">DKU Moves</span>
+          <span class="card-desc">Campus shuttle schedules and transportation info.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+  </ul>
+
   <div class="section-label">Further out</div>
   <section class="portal">
     <p class="lead">Housing, dining, health, transportation, and more — the fuller map of campus life lives here.</p>
@@ -318,7 +422,7 @@
     <div class="credit">Portal made by Minghua</div>
   </section>
 
-  <footer>DKU Online Resources· WELCOME ABOARD</footer>
+  <footer>DKU Online Resources · WELCOME ABOARD</footer>
 
 </main>
 
@@ -338,6 +442,39 @@
     frag.appendChild(s);
   }
   starsContainer.appendChild(frag);
+
+  // audience toggle
+  const btnFreshman = document.getElementById('btn-freshman');
+  const btnUpperclass = document.getElementById('btn-upperclass');
+  const listFreshman = document.getElementById('list-freshman');
+  const listUpperclass = document.getElementById('list-upperclass');
+  const heroDesc = document.getElementById('hero-desc');
+
+  const descFreshman = 'A small map of the resources that matter most to DKU students. Scan, tap, and go.';
+  const descUpperclass = 'A small map of the resources upperclass students reach for most. Scan, tap, and go.';
+
+  function showFreshman(){
+    listFreshman.classList.add('active');
+    listUpperclass.classList.remove('active');
+    btnFreshman.classList.add('active');
+    btnUpperclass.classList.remove('active');
+    btnFreshman.setAttribute('aria-selected', 'true');
+    btnUpperclass.setAttribute('aria-selected', 'false');
+    heroDesc.textContent = descFreshman;
+  }
+
+  function showUpperclass(){
+    listUpperclass.classList.add('active');
+    listFreshman.classList.remove('active');
+    btnUpperclass.classList.add('active');
+    btnFreshman.classList.remove('active');
+    btnUpperclass.setAttribute('aria-selected', 'true');
+    btnFreshman.setAttribute('aria-selected', 'false');
+    heroDesc.textContent = descUpperclass;
+  }
+
+  btnFreshman.addEventListener('click', showFreshman);
+  btnUpperclass.addEventListener('click', showUpperclass);
 </script>
 
 <div id="stats">
