@@ -33,6 +33,7 @@ The page includes a **Freshman / Upperclass toggle** at the top, so the same QR 
 | Event Calendar | https://calendar.dukekunshan.edu.cn/events |
 | Duke Canvas | https://go.canvas.duke.edu/ |
 | UG Bulletin | https://duke.box.com/s/xw53mxh0iy7imnlthcdrzrf3mn200sa2 |
+| Duke Box | https://duke.account.box.com/login |
 | DKU Moves | https://athletics.dukekunshan.edu.cn/dku-moves/ |
 
 ## QR code
