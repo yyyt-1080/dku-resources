@@ -10,11 +10,13 @@ A small, single-page resource hub for DKU students — a curated list of the mos
 
 A lightweight landing page, deployed as a single `index.html`, meant to be scanned via a printed QR code and opened on a phone. No app, no login, no build step — just a page that loads fast and gets people to the right link.
 
+The page includes a **Freshman / Upperclass toggle** at the top, so the same QR code and URL serve two different sets of resources depending on who's scanning it.
+
 ## Contents
 
-**Main** — six resources most useful to DKU students:
+**Freshman** — six resources most useful to incoming students:
 
-| Resource (especially for freshman) | Link |
+| Resource | Link |
 |---|---|
 | Writing & Language Studio | https://lcc.dukekunshan.edu.cn/writing-and-language-studio/ (or WeChat: 昆山杜克大学语言文化中心) |
 | DKU Hub | https://dkuhub.dku.edu.cn/ |
@@ -23,15 +25,15 @@ A lightweight landing page, deployed as a single `index.html`, meant to be scann
 | Duke Software Installation | https://software.duke.edu/ |
 | Faculty Directory | https://faculty.dukekunshan.edu.cn/ |
 
-| Resource (especially for upper class) | Link |
+**Upperclass** — resources upperclass students reach for most:
+
+| Resource | Link |
 |---|---|
 | DKU Hub | https://dkuhub.dku.edu.cn/ |
 | Event Calendar | https://calendar.dukekunshan.edu.cn/events |
 | Duke Canvas | https://go.canvas.duke.edu/ |
 | UG Bulletin | https://duke.box.com/s/xw53mxh0iy7imnlthcdrzrf3mn200sa2 |
-| DKU Moves | https://shib.oit.duke.edu/idp/authn/external?conversation=e1s1 |
-
-
+| DKU Moves | https://athletics.dukekunshan.edu.cn/dku-moves/ |
 
 ## QR code
 
@@ -39,5 +41,5 @@ The live URL above is encoded as a **static QR code** (not a dynamic/redirect co
 
 ## Credits
 
-- Built for the DKU dorm bulletin board project, with RA team
-- Further-resources portal made by Minghua.
+- Built for the DKU dorm bulletin board project, with the RA team
+- Further-resources portal made by Minghua
