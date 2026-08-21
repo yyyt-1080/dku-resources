@@ -14,7 +14,7 @@ The page includes a **Freshman / Upperclass toggle** at the top, so the same QR 
 
 ## Contents
 
-**Freshman** — six resources most useful to incoming students:
+**Freshman** — eight resources most useful to incoming students:
 
 | Resource | Link |
 |---|---|
@@ -24,6 +24,8 @@ The page includes a **Freshman / Upperclass toggle** at the top, so the same QR 
 | Career Services | https://careerservices.dukekunshan.edu.cn/ |
 | Duke Software Installation | https://software.duke.edu/ |
 | Faculty Directory | https://faculty.dukekunshan.edu.cn/ |
+| Duke Canvas | https://go.canvas.duke.edu/ |
+| UG Bulletin | https://duke.box.com/s/xw53mxh0iy7imnlthcdrzrf3mn200sa2 |
 
 **Upperclass** — resources upperclass students reach for most:
 
