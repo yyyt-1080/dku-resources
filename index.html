@@ -52,7 +52,24 @@
   main{position:relative; z-index:1; max-width:640px; margin:0 auto; padding: 64px 24px 96px;}
 
   .hero{text-align:center; margin-bottom:56px;}
-  .moon-wrap{display:flex; justify-content:center; margin-bottom: 22px;}
+  .moon-wrap{display:flex; justify-content:center; align-items:center; gap:20px; margin-bottom: 22px;}
+  .qr-wrap{
+    width:72px;
+    height:72px;
+    border-radius:12px;
+    overflow:hidden;
+    background: var(--cream);
+    box-shadow: 0 0 0 1px rgba(244,201,93,0.35), 0 4px 16px rgba(0,0,0,0.35);
+    flex-shrink:0;
+    transition: transform .18s ease;
+  }
+  .qr-wrap:hover{ transform: scale(1.06); }
+  .qr-wrap img{
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
   .eyebrow{
     font-family:'Space Mono', monospace;
     font-size:12px; letter-spacing:0.22em; text-transform:uppercase;
@@ -269,6 +286,9 @@
         <circle cx="44" cy="42" r="6.5" fill="#E4A0A0" opacity="0.28"/>
         <circle cx="30" cy="47" r="3" fill="#E4A0A0" opacity="0.3"/>
       </svg>
+      <a href="https://yyyt-1080.github.io/dku-resources/" class="qr-wrap" aria-label="Scan or tap to open this page">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAGQCAIAAAAP3aGbAAAACXBIWXMAAAsTAAALEwEAmpwYAAAIk0lEQVR4nO3dS5LbRhBAQY9D97+yvPSOUESpPw/M3IsDguSLXqBUP79///4HoODf0xcA8KcEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CAjF/Df//z8/OXruRewz0dj7dovgdk+ClsWESy4SasvoDVN9lP6U84YQEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWRMR3MebRj7GJqPRHx+hQ134Pjw0P2DLxsmY1Z/0N/wU3rkhAVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpCxfDTn0erH+e+fjHl0fPBl9fTS3IahkOFNvmE10dANs0FOWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARnnR3Nebz5Ys2Hjy+UX8HgNGy5g/jky54QFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkeNL9LxhuH/AI9QYbPoXjSyi+gRMWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQMR3NuX9dyoaNL0PHp0ZueAtzx7fmfMNP6ZETFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQMbP0abcm7Zx3ozHGxaVDF/DhrmT4Ws4voZjuoRi/lPacFP2fw13ORmyoBEAAAAASUVORK5CYII=" alt="QR code linking to this page">
+      </a>
     </div>
     <div class="eyebrow">DKU Compass</div>
     <h1>Everything you need,<br><em>orbiting</em> in one place</h1>
@@ -340,8 +360,6 @@
         <span class="arrow">→</span>
       </a>
     </li>
-
-    
 
     <li>
       <a class="card" href="https://faculty.dukekunshan.edu.cn/" target="_blank" rel="noopener">
@@ -423,8 +441,6 @@
         <span class="arrow">→</span>
       </a>
     </li>
-
-    
 
     <li>
       <a class="card" href="https://athletics.dukekunshan.edu.cn/dku-moves/" target="_blank" rel="noopener">
