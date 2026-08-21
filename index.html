@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DKU Compass · Student Resource Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night: #1B1F3B;
+    --night-deep: #12152B;
+    --cream: #F6EFE1;
+    --moon: #F4C95D;
+    --sage: #8FAE8B;
+    --lavender: #B9A6D9;
+    --rose: #E4A0A0;
+    --line: rgba(246,239,225,0.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background: var(--night);
+    color: var(--cream);
+    font-family: 'Work Sans', sans-serif;
+    font-weight:400;
+    min-height:100vh;
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  .sky{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background: radial-gradient(ellipse at 20% 10%, rgba(185,166,217,0.12), transparent 55%),
+                radial-gradient(ellipse at 85% 30%, rgba(244,201,93,0.08), transparent 50%),
+                linear-gradient(180deg, var(--night) 0%, var(--night-deep) 100%);
+  }
+  .star{
+    position:fixed; border-radius:50%; background:var(--cream); opacity:0.6; z-index:0;
+    animation: twinkle 4s ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%,100%{opacity:.25;}
+    50%{opacity:.85;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .star{animation:none; opacity:.5;}
+    html{scroll-behavior:auto;}
+  }
+
+  main{position:relative; z-index:1; max-width:640px; margin:0 auto; padding: 64px 24px 96px;}
+
+  .hero{text-align:center; margin-bottom:56px;}
+  .moon-wrap{display:flex; justify-content:center; align-items:center; gap:20px; margin-bottom: 22px;}
+  .qr-wrap{
+    width:72px;
+    height:72px;
+    border-radius:12px;
+    overflow:hidden;
+    background: var(--cream);
+    box-shadow: 0 0 0 1px rgba(244,201,93,0.35), 0 4px 16px rgba(0,0,0,0.35);
+    flex-shrink:0;
+    transition: transform .18s ease;
+  }
+  .qr-wrap:hover{ transform: scale(1.06); }
+  .qr-wrap img{
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:12px; letter-spacing:0.22em; text-transform:uppercase;
+    color: var(--lavender); margin-bottom:14px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    font-weight:500;
+    font-size: clamp(2.1rem, 7vw, 3rem);
+    line-height:1.1;
+    color: var(--cream);
+    margin-bottom:14px;
+  }
+  h1 em{
+    font-style:italic;
+    color: var(--moon);
+  }
+  .hero p{
+    font-size:15.5px;
+    line-height:1.6;
+    color: rgba(246,239,225,0.72);
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .section-label{
+    display:flex; align-items:center; gap:12px;
+    margin: 0 0 22px;
+    font-family:'Space Mono', monospace;
+    font-size:12px; letter-spacing:0.16em; text-transform:uppercase;
+    color: var(--sage);
+  }
+  .section-label::after{
+    content:''; flex:1; height:1px; background: var(--line);
+  }
+
+  /* audience toggle */
+  .toggle{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    margin: 0 auto 48px;
+    max-width: 340px;
+  }
+  .toggle-btn{
+    flex:1;
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color: rgba(246,239,225,0.55);
+    background: rgba(246,239,225,0.04);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 10px 14px;
+    cursor:pointer;
+    transition: background .18s ease, color .18s ease, border-color .18s ease;
+  }
+  .toggle-btn:hover{
+    border-color: rgba(244,201,93,0.35);
+    color: var(--cream);
+  }
+  .toggle-btn.active{
+    background: var(--moon);
+    border-color: var(--moon);
+    color: var(--night);
+  }
+  .toggle-btn:focus-visible{
+    outline: 2px solid var(--moon);
+    outline-offset: 2px;
+  }
+
+  .constellation{ display:none; }
+  .constellation.active{ display:flex; }
+
+  .constellation{list-style:none; flex-direction:column; gap:12px; margin-bottom:64px;}
+  .card{
+    display:block;
+    text-decoration:none;
+    color:inherit;
+    background: rgba(246,239,225,0.045);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 20px;
+    display:flex; align-items:flex-start; gap:16px;
+    transition: transform .18s ease, background .18s ease, border-color .18s ease;
+  }
+  .card:hover, .card:focus-visible{
+    background: rgba(246,239,225,0.08);
+    border-color: rgba(244,201,93,0.4);
+    transform: translateY(-2px);
+  }
+  .card:focus-visible{ outline: 2px solid var(--moon); outline-offset: 2px; }
+  .glyph{
+    flex-shrink:0;
+    width:38px; height:38px;
+    display:flex; align-items:center; justify-content:center;
+    border-radius:50%;
+    background: rgba(244,201,93,0.1);
+    font-size:17px;
+  }
+  .card-text{flex:1; min-width:0;}
+  .card-title{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:17px;
+    color: var(--cream);
+    margin-bottom:3px;
+  }
+  .card-desc{
+    font-size:13.5px;
+    line-height:1.5;
+    color: rgba(246,239,225,0.6);
+  }
+  .card-desc .alt{
+    display:block;
+    margin-top:2px;
+    color: rgba(185,166,217,0.85);
+  }
+  .arrow{
+    flex-shrink:0;
+    color: rgba(246,239,225,0.35);
+    font-size:15px;
+    align-self:center;
+    transition: transform .18s ease, color .18s ease;
+  }
+  .card:hover .arrow{ transform: translateX(3px); color: var(--moon); }
+
+  .portal{
+    text-align:center;
+    border: 1px dashed rgba(185,166,217,0.35);
+    border-radius:18px;
+    padding: 34px 24px;
+    background: radial-gradient(circle at 50% 0%, rgba(185,166,217,0.08), transparent 70%);
+  }
+  .portal p.lead{
+    font-size:14.5px;
+    color: rgba(246,239,225,0.65);
+    max-width:360px;
+    margin: 0 auto 18px;
+    line-height:1.6;
+  }
+  .portal-btn{
+    display:inline-flex; align-items:center; gap:9px;
+    text-decoration:none;
+    font-family:'Space Mono', monospace;
+    font-size:13px; letter-spacing:0.05em;
+    color: var(--night);
+    background: var(--lavender);
+    padding: 13px 24px;
+    border-radius: 999px;
+    transition: background .18s ease, transform .18s ease;
+  }
+  .portal-btn:hover, .portal-btn:focus-visible{
+    background: var(--moon);
+    transform: translateY(-2px);
+  }
+  .credit{
+    margin-top:18px;
+    font-size:12px;
+    color: rgba(246,239,225,0.4);
+  }
+
+  footer{
+    text-align:center;
+    margin-top:64px;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    color: rgba(246,239,225,0.3);
+  }
+
+  /* hidden stats panel — only visible when URL ends in #stats */
+  #stats{
+    display:none;
+    position:fixed;
+    bottom:16px;
+    right:16px;
+    z-index:10;
+    background: rgba(18,21,43,0.92);
+    border: 1px solid rgba(244,201,93,0.35);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color: var(--cream);
+    line-height:1.6;
+    backdrop-filter: blur(4px);
+  }
+  #stats:target{
+    display:block;
+  }
+</style>
+</head>
+<body>
+
+<div class="sky"></div>
+<div id="stars"></div>
+
+<main>
+
+  <section class="hero">
+    <div class="moon-wrap">
+      <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <radialGradient id="moonGrad" cx="35%" cy="30%" r="75%">
+            <stop offset="0%" stop-color="#FDF4D8"/>
+            <stop offset="100%" stop-color="#F4C95D"/>
+          </radialGradient>
+        </defs>
+        <circle cx="36" cy="36" r="30" fill="url(#moonGrad)"/>
+        <circle cx="27" cy="26" r="4.5" fill="#E4A0A0" opacity="0.35"/>
+        <circle cx="44" cy="42" r="6.5" fill="#E4A0A0" opacity="0.28"/>
+        <circle cx="30" cy="47" r="3" fill="#E4A0A0" opacity="0.3"/>
+      </svg>
+      <a href="https://yyyt-1080.github.io/dku-resources/" class="qr-wrap" aria-label="Scan or tap to open this page">
+        <img src="data:image/png;base64,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" alt="QR code linking to this page">
+      </a>
+    </div>
+    <div class="eyebrow">DKU Compass</div>
+    <h1>Everything you need,<br><em>orbiting</em> in one place</h1>
+    <p id="hero-desc">A small map of the resources that matter most to DKU students. Scan, tap, and go.</p>
+  </section>
+
+  <div class="toggle" role="tablist" aria-label="Choose your audience">
+    <button class="toggle-btn active" id="btn-freshman" role="tab" aria-selected="true" aria-controls="list-freshman">Freshman</button>
+    <button class="toggle-btn" id="btn-upperclass" role="tab" aria-selected="false" aria-controls="list-upperclass">Upperclass</button>
+  </div>
+
+  <div class="section-label">Main</div>
+
+  <ul class="constellation active" id="list-freshman">
+
+    <li>
+      <a class="card" href="https://dkuhub.dku.edu.cn/" target="_blank" rel="noopener">
+        <span class="glyph">⌂</span>
+        <span class="card-text">
+          <span class="card-title">DKU Hub</span>
+          <span class="card-desc">Your campus portal — registration, forms, and student services.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="card" href="https://go.canvas.duke.edu/" target="_blank" rel="noopener">
+        <span class="glyph">▦</span>
+        <span class="card-text">
+          <span class="card-title">Duke Canvas</span>
+          <span class="card-desc">Course materials, assignments, and grades for your classes.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="card" href="https://duke.box.com/s/xw53mxh0iy7imnlthcdrzrf3mn200sa2" target="_blank" rel="noopener">
+        <span class="glyph">▤</span>
+        <span class="card-text">
+          <span class="card-title">UG Bulletin</span>
+          <span class="card-desc">Official undergraduate requirements, majors, and degree rules.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="card" href="https://calendar.dukekunshan.edu.cn/events" target="_blank" rel="noopener">
+        <span class="glyph">✦</span>
+        <span class="card-text">
+          <span class="card-title">Event Calendar</span>
+          <span class="card-desc">Talks, clubs, socials, and everything happening on campus.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="card" href="https://lcc.dukekunshan.edu.cn/writing-and-language-studio/" target="_blank" rel="noopener">
+        <span class="glyph">✎</span>
+        <span class="card-text">
+          <span class="card-title">Writing &amp; Language Studio</span>
+          <span class="card-desc">Free 1-on-1 coaching for essays, papers, and language practice.
+            <span class="alt">Or book via WeChat: 昆山杜克大学语言文化中心</span>
+          </span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="card" href="https://faculty.dukekunshan.edu.cn/" target="_blank" rel="noopener">
+        <span class="glyph">☉</span>
+        <span class="card-text">
+          <span class="card-title">Meet the Faculty</span>
+          <span class="card-desc">Browse profiles and research areas across DKU departments.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="card" href="https://careerservices.dukekunshan.edu.cn/" target="_blank" rel="noopener">
+        <span class="glyph">◈</span>
+        <span class="card-text">
+          <span class="card-title">Career Services</span>
+          <span class="card-desc">Internships, resume reviews, and career advising.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="card" href="https://software.duke.edu/" target="_blank" rel="noopener">
+        <span class="glyph">⌘</span>
+        <span class="card-text">
+          <span class="card-title">Duke Software Installation</span>
+          <span class="card-desc">Free software and licenses available to Duke-affiliated students.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+  </ul>
+
+  <ul class="constellation" id="list-upperclass">
+
+    <li>
+      <a class="card" href="https://dkuhub.dku.edu.cn/" target="_blank" rel="noopener">
+        <span class="glyph">⌂</span>
+        <span class="card-text">
+          <span class="card-title">DKU Hub</span>
+          <span class="card-desc">Your campus portal — registration, forms, and student services.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="card" href="https://go.canvas.duke.edu/" target="_blank" rel="noopener">
+        <span class="glyph">▦</span>
+        <span class="card-text">
+          <span class="card-title">Duke Canvas</span>
+          <span class="card-desc">Course materials, assignments, and grades for your classes.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="card" href="https://duke.box.com/s/xw53mxh0iy7imnlthcdrzrf3mn200sa2" target="_blank" rel="noopener">
+        <span class="glyph">▤</span>
+        <span class="card-text">
+          <span class="card-title">UG Bulletin</span>
+          <span class="card-desc">Official undergraduate requirements, majors, and degree rules.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="card" href="https://duke.account.box.com/login" target="_blank" rel="noopener">
+        <span class="glyph">▧</span>
+        <span class="card-text">
+          <span class="card-title">Duke Box</span>
+          <span class="card-desc">Cloud storage for course files, shared documents, and department materials.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+    <li>
+      <a class="card" href="https://athletics.dukekunshan.edu.cn/dku-moves/" target="_blank" rel="noopener">
+        <span class="glyph">➤</span>
+        <span class="card-text">
+          <span class="card-title">DKU Moves</span>
+          <span class="card-desc">Log your daily exercise and earn rewards through DKU Athletics.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </li>
+
+  </ul>
+
+  <div class="section-label">Further out</div>
+  <section class="portal">
+    <p class="lead">Housing, dining, health, transportation, and more — the fuller map of campus life lives here.</p>
+    <a class="portal-btn" href="https://mimihuka.notion.site/portal-297166af583880b4a878c8d8e2deac23" target="_blank" rel="noopener">
+      Open the full portal ↗
+    </a>
+    <div class="credit">Portal made by Minghua</div>
+  </section>
+
+  <footer>DKU Online Resources · WELCOME ABOARD</footer>
+
+</main>
+
+<script>
+  const starsContainer = document.getElementById('stars');
+  const starCount = window.innerWidth < 480 ? 26 : 40;
+  const frag = document.createDocumentFragment();
+  for (let i = 0; i < starCount; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2 + 1;
+    s.style.width = size + 'px';
+    s.style.height = size + 'px';
+    s.style.top = Math.random() * 100 + 'vh';
+    s.style.left = Math.random() * 100 + 'vw';
+    s.style.animationDelay = (Math.random() * 4) + 's';
+    frag.appendChild(s);
+  }
+  starsContainer.appendChild(frag);
+
+  // audience toggle
+  const btnFreshman = document.getElementById('btn-freshman');
+  const btnUpperclass = document.getElementById('btn-upperclass');
+  const listFreshman = document.getElementById('list-freshman');
+  const listUpperclass = document.getElementById('list-upperclass');
+  const heroDesc = document.getElementById('hero-desc');
+
+  const descFreshman = 'A small map of the resources that matter most to DKU students. Scan, tap, and go.';
+  const descUpperclass = 'A small map of the resources upperclass students reach for most. Scan, tap, and go.';
+
+  function showFreshman(){
+    listFreshman.classList.add('active');
+    listUpperclass.classList.remove('active');
+    btnFreshman.classList.add('active');
+    btnUpperclass.classList.remove('active');
+    btnFreshman.setAttribute('aria-selected', 'true');
+    btnUpperclass.setAttribute('aria-selected', 'false');
+    heroDesc.textContent = descFreshman;
+  }
+
+  function showUpperclass(){
+    listUpperclass.classList.add('active');
+    listFreshman.classList.remove('active');
+    btnUpperclass.classList.add('active');
+    btnFreshman.classList.remove('active');
+    btnUpperclass.setAttribute('aria-selected', 'true');
+    btnFreshman.setAttribute('aria-selected', 'false');
+    heroDesc.textContent = descUpperclass;
+  }
+
+  btnFreshman.addEventListener('click', showFreshman);
+  btnUpperclass.addEventListener('click', showUpperclass);
+</script>
+
+<div id="stats">
+  UV: <span id="busuanzi_value_site_uv">–</span> · PV: <span id="busuanzi_value_site_pv">–</span>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</body>
+</html>
